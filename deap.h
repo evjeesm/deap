@@ -30,11 +30,11 @@
                                    /*,DEAP_FN(is_prior_t,D,T)*/ );              \
                                                                                 \
   /*void        DEAP_FN(destroy,D,T) (DEAP(D,T) *const deap); */                \
-  void    DEAP_FN(push   ,D,T) (DEAP(D,T) *const deap, T *const element);       \
-  T *     DEAP_FN(peek   ,D,T) (const DEAP(D,T) *const deap);                   \
-  T       DEAP_FN(pop    ,D,T) (DEAP(D,T) *const deap);                         \
-  void    DEAP_FN(clear  ,D,T) (DEAP(D,T) *const deap);                         \
-  void    DEAP_FN(reserve,D,T) (DEAP(D,T) **const deap, const size_t new_cap);  \
+  void      DEAP_FN(push   ,D,T) (DEAP(D,T) *const deap, const T element);      \
+  const T * DEAP_FN(peek   ,D,T) (const DEAP(D,T) *const deap);                 \
+  T         DEAP_FN(pop    ,D,T) (DEAP(D,T) *const deap);                       \
+  void      DEAP_FN(clear  ,D,T) (DEAP(D,T) *const deap);                       \
+  void      DEAP_FN(reserve,D,T) (DEAP(D,T) **const deap, const size_t new_cap);\
 
 /*
 ** Implement template respecting compile-time parameters D, T
@@ -78,17 +78,17 @@
   static void DEAP_FN(sift_up,D,T) (DEAP(D,T) *const deap, size_t i);           \
   static void DEAP_FN(sift_down,D,T) (DEAP(D,T) *const deap, size_t i);         \
                                                                                 \
-  void DEAP_FN(push,D,T) (DEAP(D,T) *const deap, T *const element) {            \
+  void DEAP_FN(push,D,T) (DEAP(D,T) *const deap, const T element) {             \
       assert(deap);                                                             \
                                                                                 \
       assert(deap->size < deap->capacity);  /* TODO:  */                        \
                                                                                 \
       size_t i = deap->size++;                                                  \
-      deap->data[i] = *element;                                                 \
+      deap->data[i] = element;                                                  \
       DEAP_FN(sift_up,D,T)(deap, i);                                            \
   }                                                                             \
                                                                                 \
-  T * DEAP_FN(peek,D,T) (const DEAP(D,T) *const deap) {                         \
+  const T * DEAP_FN(peek,D,T) (const DEAP(D,T) *const deap) {                   \
       assert(deap);                                                             \
       if (0 == deap->size) return NULL;                                         \
       return (T*)&deap->data[0];                                                \
