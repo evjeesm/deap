@@ -46,6 +46,8 @@ const int *deap4_int_peek(const deap4_int_t *const deap);
 int deap4_int_pop(deap4_int_t *const deap);
 void deap4_int_clear(deap4_int_t *const deap);
 void deap4_int_reserve(deap4_int_t **const deap, const size_t new_cap);
+size_t deap4_int_get_size(const deap4_int_t *const deap);
+size_t deap4_int_get_capacity(const deap4_int_t *const deap);
 
 int compare_ints(const int a, const int b)
 {
@@ -58,6 +60,8 @@ const int *deap4_int_peek(const deap4_int_t *const deap);
 int deap4_int_pop(deap4_int_t *const deap);
 void deap4_int_clear(deap4_int_t *const deap);
 void deap4_int_reserve(deap4_int_t **const deap, const size_t new_cap);
+size_t deap4_int_get_size(const deap4_int_t *const deap);
+size_t deap4_int_get_capacity(const deap4_int_t *const deap);
 
 struct deap4_int_t
 {
@@ -124,6 +128,18 @@ void deap4_int_clear(deap4_int_t *const deap)
 {
     assert(deap);
     deap->size = 0;
+}
+
+size_t deap4_int_get_size(const deap4_int_t *const deap)
+{
+    assert(deap);
+    return deap->size;
+}
+
+size_t deap4_int_get_capacity(const deap4_int_t *const deap)
+{
+    assert(deap);
+    return deap->capacity;
 }
 
 static void deap4_int_sift_up(deap4_int_t *const deap, size_t i)
