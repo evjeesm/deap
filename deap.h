@@ -61,6 +61,15 @@
       return deap;                                                              \
   }                                                                             \
                                                                                 \
+  void DEAP_FN(reserve,D,T) (DEAP(D,T) **const deap, const size_t new_cap) {    \
+      assert(deap && *deap);                                                    \
+      if (new_cap <= (*deap)->capacity) return;                                 \
+      const size_t old_size = sizeof(**deap)+sizeof(T)*((*deap)->capacity);     \
+      const size_t new_size = sizeof(**deap)+sizeof(T)*new_cap;                 \
+      *deap = arena_realloc((*deap)->arena, *deap, new_size, old_size);         \
+      (*deap)->capacity = new_cap;                                              \
+  }                                                                             \
+                                                                                \
   /*void DEAP_FN(destroy,D,T) (DEAP(D,T) *const deap) {                         \
       assert(deap);                                                             \
       free(deap);                                                               \
@@ -150,13 +159,4 @@
     }                                                                           \
                                                                                 \
     deap->data[i] = element;                                                    \
-  }                                                                             \
-                                                                                \
-  void DEAP_FN(reserve,D,T) (DEAP(D,T) **const deap, const size_t new_cap) {    \
-      assert(deap && *deap);                                                    \
-      if (new_cap <= (*deap)->capacity) return;                                  \
-      const size_t old_size = sizeof(**deap)+sizeof(T)*((*deap)->capacity);     \
-      const size_t new_size = sizeof(**deap)+sizeof(T)*new_cap;                 \
-      *deap = arena_realloc((*deap)->arena, *deap, new_size, old_size);         \
-      (*deap)->capacity = new_cap;                                              \
   }
