@@ -1,8 +1,8 @@
 #define ARENA_IMPLEMENTATION
 #include "deap.h"
 
-int compare_ints(const int *const a, const int *const b)
+int compare_ints(const int a, const int b)
 {
-    return *b - *a;
+    return b - a;
 }
 DEAP_IMPLEMENT(4, int, compare_ints)
