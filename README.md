@@ -10,7 +10,7 @@ Depends on [arena.h]('www.github.com/evjeesm/arena') which is included in the re
 The lib focuses on simplicity in a way that, 'T' which represents stored data type in  
 the heap is being handled mostly by value, except 'peek' method.  
 If the end user ~wishes to shoot his foot~ decides to work on references,  
-is allowed to pass pointer type definition to the desired data type and compare callback that works on references.
+is allowed to pass a pointer of the desired data type along with a matching compare callback accordingly.  
 
 ```c
 typedef int* int_ptr;
@@ -20,8 +20,8 @@ int int_ptr_cmp(int_ptr a, int_ptr b) {...}
 DEAP_IMPLEMENT(4, int_ptr, int_ptr_cmp)
 ```
 
-'typedef' is required by design for parameter 'T' in case of pointers or complex types,  
-for name mangling to work correctly.
+'typedef' is required by design for parameter 'T' when working with pointers or complex types,  
+in order to facilitate name mangling. (name T should be concatenateable)  
 
 
 see ['deap_demo.c'](./deap_demo.c) for examples
@@ -59,11 +59,26 @@ Just prepend entire contents of "deap.h" and "arena.h" to that file.
 Than you can compile it into an object like that (gcc):  
 
 ```sh
-gcc -xc -c -DDEAP4_INT_IMPLEMENTATION -DARENA_IMPLEMENTATION stb_deap4_int.h -o stb_deap4_int.o
+gcc -xc -c -DDEAP4_INT_IMPLEMENTATION stb_deap4_int.h -o stb_deap4_int.o
 ```
 
 ---
 
 P.S.: If want to say something like, "but author, your lib just shoot my foot already by reducing debugability to effective zero!",  
 You are god damn right!  
+
+Just kidding, here is a [script](./template_unwrap.sh) that builds pretty formatted version of the templated source code,  
+so you can link against it and debug your project, like a nobel:
+
+```sh
+
+./template_unwrap.sh && gcc -g stb_deap4_int.c -c
+gcc -g my_main.c stb_deap4_int.o -o debuggable_build
+gdb ./debuggable_build
+
+```
+
+P.S.:  
+  P.S.: 
+    the sad part if that source fixes should be transplanted manually to the templated code.
 

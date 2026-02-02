@@ -1,12 +1,11 @@
+#ifndef _DEAP4_INT_H_
+#define _DEAP4_INT_H_
+
 /*
 ** Copypaste entire "deap.h" and "arena.h" contents here instead of including:
 ** ...
 */
 #include "deap.h"
-#include "arena.h"
-
-#ifndef _DEAP4_INT_H_
-#define _DEAP4_INT_H_
 
 DEAP_DECLARE(4, int)
 
@@ -20,5 +19,8 @@ int compare_ints(const int a, const int b)
 }
 
 DEAP_IMPLEMENT(4, int, compare_ints)
+
+#define ARENA_IMPLEMENTATION
+#include "arena.h"
 
 #endif/* defined(DEAP4_INT_IMPLEMENTATION) */

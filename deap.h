@@ -128,34 +128,34 @@
   }                                                                             \
                                                                                 \
   static void DEAP_FN(sift_down,D,T) (DEAP(D,T) *const deap, size_t i) {        \
-    T element = deap->data[i];                                                  \
+      T element = deap->data[i];                                                \
                                                                                 \
-    for (;;) {                                                                  \
-        size_t first = FIRST_CHILD(D,i);                                        \
-        if (first >= deap->size) {                                              \
-            break;                                                              \
-        }                                                                       \
+      for (;;) {                                                                \
+          size_t first = FIRST_CHILD(D,i);                                      \
+          if (first >= deap->size) {                                            \
+              break;                                                            \
+          }                                                                     \
                                                                                 \
-        size_t best = first;                                                    \
-        size_t last = first + D;                                                \
-        if (last > deap->size) {                                                \
-            last = deap->size;                                                  \
-        }                                                                       \
+          size_t best = first;                                                  \
+          size_t last = first + D;                                              \
+          if (last > deap->size) {                                              \
+              last = deap->size;                                                \
+          }                                                                     \
                                                                                 \
-        /* find min child */                                                    \
-        for (size_t c = first + 1; c < last; ++c) {                             \
-            if (is_prior(deap->data[c], deap->data[best]) > 0) {                \
-                best = c;                                                       \
-            }                                                                   \
-        }                                                                       \
+          /* find min child */                                                  \
+          for (size_t c = first + 1; c < last; ++c) {                           \
+              if (is_prior(deap->data[c], deap->data[best]) > 0) {              \
+                  best = c;                                                     \
+              }                                                                 \
+          }                                                                     \
                                                                                 \
-        if (is_prior(element, deap->data[best]) >= 0) {                         \
-            break;                                                              \
-        }                                                                       \
+          if (is_prior(element, deap->data[best]) >= 0) {                       \
+              break;                                                            \
+          }                                                                     \
                                                                                 \
-        deap->data[i] = deap->data[best];                                       \
-        i = best;                                                               \
-    }                                                                           \
+          deap->data[i] = deap->data[best];                                     \
+          i = best;                                                             \
+      }                                                                         \
                                                                                 \
-    deap->data[i] = element;                                                    \
+      deap->data[i] = element;                                                  \
   }

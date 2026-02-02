@@ -1,6 +1,10 @@
 *
 
+# intentionally uploading unwrapped version for showcase
+!stb_deap4_int.c
+
 !*.h
 !*.c
+!*.sh
 !*.md
 !.gitignore
