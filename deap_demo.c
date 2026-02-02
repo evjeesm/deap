@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 // int compare_ints(const int *const first, const int *const second);
-int compare_ints(const int *const a, const int *const b)
+int compare_ints(const int a, const int b)
 {
-    return *b - *a;
+    return b - a;
 }
 
 #define ARENA_IMPLEMENTATION

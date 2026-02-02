@@ -118,8 +118,7 @@
       T element = deap->data[i];                                                \
       while (i > 0) {                                                           \
           size_t p = PARENT(D, i);                                              \
-          T *parent = &deap->data[p];                                           \
-          if (is_prior(parent, &element) >= 0) {                                \
+          if (is_prior(deap->data[p], element) >= 0) {                          \
               break;                                                            \
           }                                                                     \
           deap->data[i] = deap->data[p];                                        \
@@ -145,12 +144,12 @@
                                                                                 \
         /* find min child */                                                    \
         for (size_t c = first + 1; c < last; ++c) {                             \
-            if (is_prior(&deap->data[c], &deap->data[best]) > 0) {              \
+            if (is_prior(deap->data[c], deap->data[best]) > 0) {                \
                 best = c;                                                       \
             }                                                                   \
         }                                                                       \
                                                                                 \
-        if (is_prior(&element, &deap->data[best]) >= 0) {                       \
+        if (is_prior(element, deap->data[best]) >= 0) {                         \
             break;                                                              \
         }                                                                       \
                                                                                 \
