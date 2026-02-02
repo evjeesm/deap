@@ -35,6 +35,8 @@
   T         DEAP_FN(pop    ,D,T) (DEAP(D,T) *const deap);                       \
   void      DEAP_FN(clear  ,D,T) (DEAP(D,T) *const deap);                       \
   void      DEAP_FN(reserve,D,T) (DEAP(D,T) **const deap, const size_t new_cap);\
+  size_t    DEAP_FN(get_size,D,T) (const DEAP(D,T) *const deap);                \
+  size_t    DEAP_FN(get_capacity,D,T) (const DEAP(D,T) *const deap);            \
 
 /*
 ** Implement template respecting compile-time parameters D, T
@@ -80,8 +82,9 @@
                                                                                 \
   void DEAP_FN(push,D,T) (DEAP(D,T) *const deap, const T element) {             \
       assert(deap);                                                             \
-                                                                                \
-      assert(deap->size < deap->capacity);  /* TODO:  */                        \
+      /* NOTE: overflowing deap - BUG! */                                       \
+      /* user should check for free space before pushing */                     \
+      assert(deap->size < deap->capacity);                                      \
                                                                                 \
       size_t i = deap->size++;                                                  \
       deap->data[i] = element;                                                  \
@@ -112,6 +115,16 @@
   void DEAP_FN(clear,D,T) (DEAP(D,T) *const deap) {                             \
       assert(deap);                                                             \
       deap->size = 0;                                                           \
+  }                                                                             \
+                                                                                \
+  size_t DEAP_FN(get_size,D,T) (const DEAP(D,T) *const deap) {                  \
+      assert(deap);                                                             \
+      return deap->size;                                                        \
+  }                                                                             \
+                                                                                \
+  size_t DEAP_FN(get_capacity,D,T) (const DEAP(D,T) *const deap) {              \
+      assert(deap);                                                             \
+      return deap->capacity;                                                    \
   }                                                                             \
                                                                                 \
   static void DEAP_FN(sift_up,D,T) (DEAP(D,T) *const deap, size_t i) {          \
